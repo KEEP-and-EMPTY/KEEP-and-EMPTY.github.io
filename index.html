@@ -152,23 +152,99 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-关于C-的继承" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-C-Plus-Plusget-andgetline" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/05/30/%E5%85%B3%E4%BA%8EC-%E7%9A%84%E7%BB%A7%E6%89%BF/">关于C++的继承</a>
+      <a class="article-title" href="/2022/06/01/C-Plus-Plusget-andgetline/">C_Plus_Plusget()andgetline()</a>
     </h1>
   
 
         
-        <a href="/2022/05/30/%E5%85%B3%E4%BA%8EC-%E7%9A%84%E7%BB%A7%E6%89%BF/" class="archive-article-date">
-  	<time datetime="2022-05-30T12:34:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-30</time>
+        <a href="/2022/06/01/C-Plus-Plusget-andgetline/" class="archive-article-date">
+  	<time datetime="2022-06-01T04:04:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-01</time>
 </a>
         
       </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-中的cin-get-amp-amp-cin-getline"><a href="#C-中的cin-get-amp-amp-cin-getline" class="headerlink" title="C++中的cin.get()&amp;&amp;cin.getline()"></a>C++中的cin.get()&amp;&amp;cin.getline()</h1><p><strong>一、cin.get()</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//对cin.get()</span></span><br><span class="line">    <span class="comment">//单个字符输入</span></span><br><span class="line">    <span class="type">char</span> ch,ch_1;</span><br><span class="line">    cin.<span class="built_in">get</span>(ch);</span><br><span class="line">    <span class="comment">//因为返回的是对象cin可以这样连续用</span></span><br><span class="line">    cin.<span class="built_in">get</span>(ch).<span class="built_in">get</span>(ch_1);</span><br><span class="line">    <span class="comment">//cin.get()的另外一种用法，就是让它返回字符</span></span><br><span class="line">    ch = cin.<span class="built_in">get</span>();</span><br><span class="line">    <span class="comment">//对字符串操作,至少要有两参数</span></span><br><span class="line">    <span class="type">char</span> a[<span class="number">100</span>],a_1[<span class="number">100</span>];</span><br><span class="line">    <span class="comment">//第一个参数是要输入类型为char* ,第二个是设定输入长度，第三个是终止符</span></span><br><span class="line">    cin.<span class="built_in">get</span>(a,<span class="number">100</span>);<span class="comment">//此时最大有效个数为99（n-1）个字符，默认以换行作为结束符</span></span><br><span class="line">    <span class="comment">//如果下一行直接再用如下语句就会有问题</span></span><br><span class="line">    cin.<span class="built_in">get</span>(a_1,<span class="number">100</span>);</span><br><span class="line">    <span class="comment">//此时就是在输入完a字符串后按了回车键那么a_1的第一个收到的字符串为&#x27;\n&#x27;</span></span><br><span class="line">    <span class="comment">//就直接结束了，a_1就没有了输入</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而当我对a和a_1的输入使用了终止符，a_1的输入会把a的终止符都进去并且多读入一个换行，虽然此时可以接着输入，但也不是我所期望的结果。如果a和a_1使用了相同的终止符结果会一致。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cin.<span class="built_in">get</span>(a,<span class="number">100</span>,<span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">cin.<span class="built_in">get</span>(a,<span class="number">100</span>,<span class="string">&#x27;!&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\28374\AppData\Roaming\Typora\typora-user-images\image-20220531213608183.png" alt="image-20220531213608183"></p>
+<p>在这里a_1收到的第一个字符是’*’第二个就是’\n’了。</p>
+<p><strong>二、cin.getline()</strong></p>
+<p>此时cin.getline()就可以解决问题了</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//cin.getline()也有三个参数，第一个为字符指针，第二个为长度，第三个为终止符至少要有两个参数</span></span><br><span class="line"><span class="comment">/*默认终止符为换行符，如果换了终止符就可以输入换行符和制表符之类的了，当然上面的get如果换了终止符，同样也可</span></span><br><span class="line"><span class="comment">以输入换行符，制表符，当然了也会出现上述问题，所以输入字符数组，想要有空格和换行符之类的就用getline()比较好。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">cin.<span class="built_in">getline</span>(a,<span class="number">100</span>,<span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">cin.<span class="built_in">getline</span>(a_1,<span class="number">100</span>,<span class="string">&#x27;*&#x27;</span>);</span><br><span class="line"><span class="comment">//这样子就会满足输入需求了</span></span><br><span class="line"><span class="comment">//如果行输入就不要设定终止符就好了</span></span><br></pre></td></tr></table></figure>
+
+<p>注意cin.getline()返回的不是cin对象。</p>
+<p><strong>三、string类内的geiline()函数</strong></p>
+<p>getline()的原型是istream&amp; getline ( istream &amp;is , string &amp;str , char delim );</p>
+<p>getline()有三个参数，第一个是cin，第二个定义的字符串类的实例对象，第三个是终止符默认为’\n’。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">mian</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	string a;</span><br><span class="line">    <span class="built_in">getline</span>(cin,a);</span><br><span class="line">    <span class="comment">//可以获取一行字符串</span></span><br><span class="line">    <span class="built_in">getline</span>(cin,a,<span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Knowledge</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/06/01/C-Plus-Plusget-andgetline/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-关于C-的继承" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -227,17 +303,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Knowledge</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -552,10 +617,10 @@
 <p>####     2.建立公开密钥</p>
 <p>##  3.git中的操作</p>
 <p>&#x2F;&#x2F; ssh密钥</p>
-<p>ssh-keygen -t rsa -C “<a href="mailto:&#50;&#56;&#x33;&#x37;&#52;&#x36;&#56;&#50;&#52;&#56;&#64;&#x71;&#113;&#x2e;&#99;&#111;&#109;">&#50;&#56;&#x33;&#x37;&#52;&#x36;&#56;&#50;&#52;&#56;&#64;&#x71;&#113;&#x2e;&#99;&#111;&#109;</a>“（此处应填为你建立GitHub的邮箱）</p>
+<p>ssh-keygen -t rsa -C “<a href="mailto:&#50;&#x38;&#x33;&#55;&#x34;&#x36;&#x38;&#x32;&#52;&#56;&#x40;&#113;&#x71;&#46;&#x63;&#111;&#109;">&#50;&#x38;&#x33;&#55;&#x34;&#x36;&#x38;&#x32;&#52;&#56;&#x40;&#113;&#x71;&#46;&#x63;&#111;&#109;</a>“（此处应填为你建立GitHub的邮箱）</p>
 <p>（此步骤后就要去GitHub建立公开密钥）</p>
 <p>&#x2F;&#x2F; 连结</p>
-<p>ssh -T <a href="mailto:&#x67;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#117;&#98;&#46;&#99;&#x6f;&#x6d;">&#x67;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#117;&#98;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>ssh -T <a href="mailto:&#103;&#x69;&#116;&#64;&#x67;&#x69;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#x6d;">&#103;&#x69;&#116;&#64;&#x67;&#x69;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#x6d;</a></p>
 <p>&#x2F;&#x2F; 安装hexo</p>
 <p>npm install -g hexo</p>
 <p>&#x2F;&#x2F; hexo初始化</p>
